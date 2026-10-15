@@ -1,0 +1,29 @@
+# Python virtual environment
+
+.venv/
+
+# Python cache
+
+**pycache**/
+*.py[cod]
+
+# Environment variables
+
+.env
+
+# Editor settings
+
+.vscode/
+
+# Operating system files
+
+.DS_Store
+Thumbs.db
+
+# Large source datasets
+
+Data/title.basics.tsv.gz
+Data/tmdb_5000_credits.csv
+Data/tmdb_5000_movies.csv
+# Exclude unused duplicate movie poster folders from GitHub
+/static/css/Images/

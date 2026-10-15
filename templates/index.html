@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#10091f">
+    <meta name="description" content="Discover Indian movies across languages, explore similar movies, and build your personal watchlist.">
+
+    <title>CineVerse | Discover Your Next Favorite Movie</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <a class="logo" href="/" aria-label="CineVerse Home">
+            Cine<span>Verse</span>
+        </a>
+
+        <nav aria-label="Main navigation">
+            <a href="/" class="nav-link active">Home</a>
+            <a href="#movies" class="nav-link">Explore Movies</a>
+            <a href="#featured" class="nav-link">Featured</a>
+            <a href="#watchlist" class="nav-link">My Watchlist</a>
+        </nav>
+
+        <a href="#movies" class="profile" aria-label="Explore movies">
+            CV
+        </a>
+    </header>
+
+    <main>
+
+        <!-- Hero Banner -->
+        <section class="hero">
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    YOUR NEXT FAVORITE MOVIE AWAITS
+                </p>
+
+                <h1>
+                    Discover Movies.<br>
+                    <span>Find Your Story.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Explore Indian cinema across languages, discover
+                    hidden gems, and find movies that match your interests.
+                </p>
+
+                <a href="#movies" class="primary-button">
+                    Explore Movies
+                    <span aria-hidden="true">&#8594;</span>
+                </a>
+
+            </div>
+
+            <div class="hero-badge">
+                <span class="badge-icon" aria-hidden="true">&#10022;</span>
+                <div>
+                    <strong>Discover More</strong>
+                    <p>Your personal cinema guide</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Images -->
+        <section class="featured-section" id="featured">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">HANDPICKED FOR YOU</p>
+                    <h2>Featured Cinema</h2>
+                    <p class="section-description">
+                        Take a look at our featured movie artwork.
+                    </p>
+                </div>
+            </div>
+
+            <div class="featured-grid">
+
+                <article class="featured-card">
+                    <img
+                        src="{{ url_for('static', filename='images/MOVIE2.jpg') }}"
+                        alt="Featured movie artwork one"
+                        loading="lazy"
+                    >
+                    <div class="featured-overlay">
+                        <span>FEATURED</span>
+                        <h3>Discover New Stories</h3>
+                    </div>
+                </article>
+
+                <article class="featured-card">
+                    <img
+                        src="{{ url_for('static', filename='images/MOVIE4.jpg') }}"
+                        alt="Featured movie artwork two"
+                        loading="lazy"
+                    >
+                    <div class="featured-overlay">
+                        <span>YOUR NEXT WATCH</span>
+                        <h3>Find Your Favourite</h3>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Movie Search and Filters -->
+        <section class="filter-section" id="movies">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">YOUR PERSONAL MOVIE HUB</p>
+                    <h2>Explore the Collection</h2>
+                    <p class="section-description">
+                        Search, filter, and discover your next movie.
+                    </p>
+                </div>
+
+                <span class="collection-count">
+                    Explore Indian Cinema
+                </span>
+            </div>
+
+            <form class="filters" id="movieFilterForm">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search for a movie..."
+                    aria-label="Search movies"
+                >
+
+                <select
+                    id="languageFilter"
+                    aria-label="Filter by language"
+                >
+                    <option value="all">All Languages</option>
+
+                    {% for language in languages %}
+                    <option value="{{ language }}">
+                        {{ language|title }}
+                    </option>
+                    {% endfor %}
+                </select>
+
+                <input
+                    type="search"
+                    id="genreInput"
+                    placeholder="Genre (e.g. Action)"
+                    aria-label="Filter by genre"
+                >
+
+                <button
+                    type="submit"
+                    id="searchButton"
+                    class="primary-button"
+                >
+                    Search
+                </button>
+
+                <button
+                    type="button"
+                    id="clearFiltersButton"
+                    class="secondary-button"
+                >
+                    Clear
+                </button>
+
+            </form>
+        </section>
+
+        <!-- Movie Collection -->
+        <section class="movies-section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">FIND YOUR NEXT FAVORITE</p>
+                    <h2 id="resultsTitle">Movies You May Like</h2>
+                    <p class="section-description">
+                        Explore movies and discover similar stories.
+                    </p>
+                </div>
+            </div>
+
+            <div
+                id="moviesGrid"
+                class="movies-grid"
+                aria-live="polite"
+            >
+                <p class="loading-message">Loading movies...</p>
+            </div>
+
+            <p
+                id="statusMessage"
+                class="status-message"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+        </section>
+
+        <!-- Watchlist -->
+        <section class="watchlist-section" id="watchlist">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">YOUR PERSONAL COLLECTION</p>
+                    <h2>My Watchlist</h2>
+                    <p class="section-description">
+                        Keep track of the movies you want to watch.
+                    </p>
+                </div>
+            </div>
+
+            <div id="watchlistGrid" class="movies-grid">
+                <p class="loading-message">
+                    Your watchlist is empty.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <a class="logo" href="/">
+            Cine<span>Verse</span>
+        </a>
+
+        <p>Discover cinema. One story at a time.</p>
+
+        <p class="footer-small">
+            AI-Based Movie Recommendation System
+        </p>
+
+        <p class="footer-small">
+            Made for movie lovers.
+        </p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
